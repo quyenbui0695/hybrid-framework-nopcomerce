@@ -147,9 +147,5 @@ public class Register_Page_Object extends BasePage {
 	public void afterClass() {
 	}
 
-	public int generateFakeNumber() {
-		Random rand = new Random();
-		return rand.nextInt(9999);
-	}
 
 }

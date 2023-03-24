@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import commons.BasePage;
 import commons.BaseTest;
 import commons.pageGeneratorManagement;
 import pageObject.AddressedPageObject;
@@ -61,7 +62,7 @@ public class  Apply_BasePage_6_DynamicLocator extends BaseTest {
 
 
 
-		emailAddress = "mint" + generateFakeNumber() + "@hotmail.com";
+		emailAddress = "mint" + BasePage.generateFakeNumber() + "@hotmail.com";
 		registerPage = homePage.clickToRegisterLink();
 		registerPage.clickToRegisterButton();
 		registerPage.selectMaleRadioButton();
@@ -99,9 +100,5 @@ public class  Apply_BasePage_6_DynamicLocator extends BaseTest {
 	public void afterClass() {
 	}
 
-	public int generateFakeNumber() {
-		Random rand = new Random();
-		return rand.nextInt(9999);
-	}
 
 }

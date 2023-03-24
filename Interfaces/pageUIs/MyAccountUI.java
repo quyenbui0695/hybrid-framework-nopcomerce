@@ -11,7 +11,10 @@ public class MyAccountUI {
 	public static final String PRODUCTREVIEW = "//div[contains (@class, 'account-navigation')]//a[contains(text(),'reviews')]";
 	public static final String MYACCOUNT = "//div[contains(@class, 'account-navigation')]//strong[text()='My account']";
 	public static final String DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA = "//div[contains(@class, 'account-navigation')]//a[contains(text(), '%s')]";
-	                                                              //div[contains(@class, 'account-navigation')]//a[contains(text(), 'Addresses')]
+	public static final String DYNAMIC_TEXTBOX_AT_MY_ACCOUNT_AREA = "//div[@class='inputs']//input[@id='%s']";
+	public static final String DYNAMIC_RADIO_BUTTON_AT_MY_ACCOUNT_AREA = "//div[@class='gender']//input[@id='%s']";
+	public static final String DYNAMIC_DATE_OF_BIRTH_AT_MY_ACCOUNT_AREA = "//div[@class='date-picker-wrapper']//select[@name='%s']";
+	public static final String SAVE_BUTTON = "//button[@id='save-info-button']";
 	
 	
 	

@@ -3,6 +3,7 @@ package commons;
 import java.awt.Desktop.Action;
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.Alert;
@@ -153,9 +154,10 @@ public class BasePage {
 
 	public void clickToElement(WebDriver driver, String xpathLocator) {
 		findElement(driver, xpathLocator).click();
-		
+
 	}
-	public void clickToElement(WebDriver driver, String xpathLocator, String...dynamicValues ) {
+
+	public void clickToElement(WebDriver driver, String xpathLocator, String... dynamicValues) {
 		findElement(driver, castRestParameter(xpathLocator, dynamicValues)).click();
 
 	}
@@ -164,11 +166,11 @@ public class BasePage {
 		WebElement element = findElement(driver, xpathLocator);
 		element.clear();
 		element.sendKeys(textValue);
-		
+
 	}
-	
-	public void sendKeyToElement(WebDriver driver, String xpathLocator, String textValue, String...dynamicValues) {
-		WebElement element = findElement(driver, xpathLocator);
+
+	public void sendKeyToElement(WebDriver driver, String xpathLocator, String textValue, String... dynamicValues) {
+		WebElement element = findElement(driver, castRestParameter(xpathLocator, dynamicValues ));
 		element.clear();
 		element.sendKeys(textValue);
 
@@ -176,6 +178,11 @@ public class BasePage {
 
 	public String getTextOfElement(WebDriver driver, String xpathLocator) {
 		return findElement(driver, xpathLocator).getText();
+		
+	}
+	
+	public String getTextOfElement(WebDriver driver, String xpathLocator, String... dynamicValues) {
+		return findElement(driver, castRestParameter(xpathLocator, dynamicValues)).getText();
 
 	}
 
@@ -186,12 +193,14 @@ public class BasePage {
 		
 	}
 	
-	public void selectItemInDefaultDropdown(WebDriver driver, String xpathLocator, String textValue, String...dynamicValues) {
-		Select select = new Select(findElement(driver, xpathLocator));
+	public void selectItemInDefaultDropdown(WebDriver driver, String xpathLocator, String textValue, String... dynamicValues) {
+		Select select = new Select(findElement(driver, castRestParameter(xpathLocator, dynamicValues)));
 
 		select.selectByValue(textValue);
 
 	}
+
+
 
 	public boolean isDropDownListMutiple(WebDriver driver, String xpathLocator) {
 		Select select = new Select(findElement(driver, xpathLocator));
@@ -271,14 +280,14 @@ public class BasePage {
 	}
 
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator) {
-		
-		return findElement(driver, xpathLocator).isDisplayed();
-		
-	}
-	
-	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String...dynamicValues) {
 
 		return findElement(driver, xpathLocator).isDisplayed();
+
+	}
+
+	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String... dynamicValues) {
+
+		return findElement(driver, castRestParameter(xpathLocator, dynamicValues)).isDisplayed();
 
 	}
 
@@ -454,33 +463,34 @@ public class BasePage {
 	}
 
 	public void waitforElementVisible(WebDriver driver, String xpathLocator) {
-		
-		WebDriverWait explicitWait = new WebDriverWait(driver, 30);
-		
-		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
-		
-	}
-	
-	public void waitforElementVisible(WebDriver driver, String xpathLocator, String...dynamicValues) {
 
-		WebDriverWait explicitWait = new WebDriverWait(driver, 20);
+		WebDriverWait explicitWait = new WebDriverWait(driver, 30);
+
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
+
+	}
+
+	public void waitforElementVisible(WebDriver driver, String xpathLocator, String... dynamicValues) {
+
+		WebDriverWait explicitWait = new WebDriverWait(driver, 10);
 
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(castRestParameter(xpathLocator, dynamicValues))));
 
 	}
 
 	public void waitforAllElementsVisible(WebDriver driver, String xpathLocator) {
-		
+
 		WebDriverWait explicitWait = new WebDriverWait(driver, 30);
-		
+
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathLocator)));
 	}
-	
-	public void waitforAllElementsVisible(WebDriver driver, String xpathLocator, String...dynamicValues) {
 
-		WebDriverWait explicitWait = new WebDriverWait(driver, 30);
+	public void waitforAllElementsVisible(WebDriver driver, String xpathLocator, String... dynamicValues) {
 
-		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathLocator)));
+		WebDriverWait explicitWait = new WebDriverWait(driver, 10);
+
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(castRestParameter(xpathLocator, dynamicValues))));
+
 	}
 
 	public void waitforElementInvisible(WebDriver driver, String xpathLocator) {
@@ -499,18 +509,19 @@ public class BasePage {
 	}
 
 	public void waitforElementClickable(WebDriver driver, String xpathLocator) {
-		
+
 		WebDriverWait explicitWait = new WebDriverWait(driver, 30);
-		
+
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
-		
+
 	}
-	
-	public void waitforElementClickable(WebDriver driver, String xpathLocator, String...dynamicValues) {
+
+	public void waitforElementClickable(WebDriver driver, String xpathLocator, String... dynamicValues) {
 
 		WebDriverWait explicitWait = new WebDriverWait(driver, 30);
 
-		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
+		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(castRestParameter(xpathLocator, dynamicValues))));
+
 
 	}
 
@@ -578,19 +589,27 @@ public class BasePage {
 	public MyAccountPageObject clickToMyaccountLink(WebDriver driver) {
 		waitforElementVisible(driver, RegisterPageUI.MYACCOUNTLINK);
 		clickToElement(driver, RegisterPageUI.MYACCOUNTLINK);
-		return  pageGeneratorManagement.getMyAccountPage(driver);
+		return pageGeneratorManagement.getMyAccountPage(driver);
 
 	}
-	
-	public String castRestParameter (String locator, String... values) {
+
+	public String castRestParameter(String locator, String... values) {
 		locator = String.format(locator, (Object[]) values);
 		return locator;
-		}
+	}
 	
-	public void openDynamicMorePage (WebDriver driver, String PageName) {
-		
+
+	public void openDynamicMorePage(WebDriver driver, String PageName) {
+
 		waitforElementVisible(driver, MyAccountUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, PageName);
 		clickToElement(driver, MyAccountUI.DYNAMIC_PAGE_AT_MY_ACCOUNT_AREA, PageName);
 	}
-}
 
+	public static int generateFakeNumber() {
+		Random rand = new Random();
+		return rand.nextInt(9999);
+	}
+
+
+
+}

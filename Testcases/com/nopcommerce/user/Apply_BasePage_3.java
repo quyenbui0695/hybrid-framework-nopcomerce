@@ -186,11 +186,8 @@ public class Apply_BasePage_3  extends BasePage {
   @AfterClass
   public void afterClass() {
   }
-  public int generateFakeNumber () {
-  Random rand = new Random ();
-  return rand.nextInt(9999);
-  
+
   
   
   }
-}
+
